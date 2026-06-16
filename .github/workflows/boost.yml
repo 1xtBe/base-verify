@@ -1,7 +1,11 @@
 name: Generate Commits
 
 on:
-  workflow_dispatch: # Allows you to trigger it manually with a single tap
+  workflow_dispatch:
+
+# This line explicitly gives the action permission to push code to your repo
+permissions:
+  contents: write
 
 jobs:
   make-commits:
@@ -23,8 +27,5 @@ jobs:
           done
 
       - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-
+        run: |
+          git push origin main
