@@ -1,0 +1,30 @@
+name: Generate Commits
+
+on:
+  workflow_dispatch: # Allows you to trigger it manually with a single tap
+
+jobs:
+  make-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run loop for 105 commits
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Action"
+          
+          for i in {1..105}
+          do
+            echo "Commit number $i" >> log.txt
+            git add log.txt
+            git commit -m "chore: automated commit $i"
+          done
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+
