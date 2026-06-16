@@ -3,7 +3,6 @@ name: Generate Commits
 on:
   workflow_dispatch:
 
-# This line explicitly gives the action permission to push code to your repo
 permissions:
   contents: write
 
@@ -16,16 +15,18 @@ jobs:
 
       - name: Run loop for 105 commits
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Action"
+          # CHANGE THIS to your actual GitHub email address:
+          git config --local user.email "odionisaiahbright@gmail.com"
+          git config --local user.name "1xtBe"
           
           for i in {1..105}
           do
-            echo "Commit number $i" >> log.txt
+            echo "User commit number $i" >> log.txt
             git add log.txt
-            git commit -m "chore: automated commit $i"
+            git commit -m "chore: verified public commit $i"
           done
 
       - name: Push changes
         run: |
           git push origin main
+
